@@ -6,8 +6,8 @@ import org.apache.pdfbox.Loader;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 
-public class PDFLoader {
-    public static String readFromFile(String fileName1) throws IOException {
+public class PDFLoader implements DocLoader {
+    public String load(String fileName1) throws IOException {
         try (PDDocument document = Loader.loadPDF(new File(fileName1))) {
             PDFTextStripper stripper = new PDFTextStripper();
             return stripper.getText(document);

@@ -1,9 +1,10 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
-public class DocumentLoader {
-    public static String readFromFile(String fileName1) throws FileNotFoundException {
+public class TxtLoader implements DocLoader {
+    public String load(String fileName1) throws IOException {
         StringBuilder text = new StringBuilder();
         Scanner input = new Scanner(new File(fileName1));
         while (input.hasNextLine()) {
