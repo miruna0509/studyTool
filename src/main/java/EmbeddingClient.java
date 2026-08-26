@@ -13,7 +13,6 @@ public class EmbeddingClient {
         ObjectMapper objectMapper = new ObjectMapper();
         JSONObject obj = new JSONObject("nomic-embed-text", text);
         String jsonString = objectMapper.writeValueAsString(obj);
-        System.out.println(jsonString);
         HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create("http://localhost:11434/api/embeddings"))

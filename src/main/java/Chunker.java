@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Chunker {
-    private static final int CHUNK_SIZE = 300;
+    private static final int CHUNK_SIZE = 200;
     private static final int OVERLAP = 50;
     private static EmbeddingClient client = new EmbeddingClient();
     public static List<Chunk> chunk(String text, String sourceFile) throws IOException, InterruptedException {
