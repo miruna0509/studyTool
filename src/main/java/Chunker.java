@@ -1,11 +1,12 @@
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Chunker {
     private static final int CHUNK_SIZE = 300;
     private static final int OVERLAP = 50;
-
-    public static List<Chunk> chunk(String text, String sourceFile) {
+    private static EmbeddingClient client = new EmbeddingClient();
+    public static List<Chunk> chunk(String text, String sourceFile) throws IOException, InterruptedException {
         List<Chunk> chunks = new ArrayList<>();
         String[] words = text.trim().split("\\s+");
 
@@ -20,7 +21,7 @@ public class Chunker {
                 sb.append(words[i]).append(' ');
             }
 
-            chunks.add(new Chunk(sb.toString().trim(), sourceFile, chunkIndex));
+            chunks.add(new Chunk(sb.toString().trim(), sourceFile, chunkIndex,client.embed(sb.toString().trim()) ));
             chunkIndex++;
 
             if (end == words.length) break;

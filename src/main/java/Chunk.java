@@ -4,10 +4,12 @@ public class Chunk {
     private String text;
     private String sourceFile;
     private int chunkIndex;
-    public Chunk(String text, String sourceFile, int chunkIndex) {
+    private float[]  vector;
+    public Chunk(String text, String sourceFile, int chunkIndex, float[] vector) {
         this.text = text;
         this.sourceFile = sourceFile;
         this.chunkIndex = chunkIndex;
+        this.vector = vector;
     }
     public String getText() {
         return text;
@@ -20,5 +22,11 @@ public class Chunk {
     }
     public void setSourceFile(String sourceFile) {
         this.sourceFile = sourceFile;
+    }
+    public int getChunkIndex() {
+        return chunkIndex;
+    }
+    public float[] getVector() {
+        return vector;
     }
 }
