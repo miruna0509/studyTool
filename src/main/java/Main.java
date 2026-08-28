@@ -1,10 +1,6 @@
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) throws IOException, InterruptedException {
         String fileName1 = args[0];
@@ -15,13 +11,21 @@ public class Main {
             loader = new TxtLoader();
         }
         String s = loader.load(fileName1);
-        System.out.println(s);
         List<Chunk> chunks = Chunker.chunk(s, fileName1);
-        for (Chunk chunk : chunks) {
-            System.out.println("newChunk:\n");
-            System.out.println(chunk.getText());
-            System.out.println(chunk.getVector().length);
-            System.out.println(Arrays.toString(chunk.getVector()));
+
+        RetrievalClient retrievalClient = new RetrievalClient();
+        List<Chunk> results = retrievalClient.relevantChunks("What are the phases of cell division", chunks);
+
+        StringBuilder context = new StringBuilder();
+        for (Chunk chunk : results) {
+            context.append(chunk.getText()).append("\n\n");
         }
+
+        GenerationClient generationClient = new GenerationClient();
+        String answer = generationClient.generate(
+                "Given the following context: " + context + "\n\nAnswer this prompt: What are the phases of cell division"
+        );
+
+        System.out.println("Answer: " + answer);
     }
 }
